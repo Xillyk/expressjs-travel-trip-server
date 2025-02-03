@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import TripsData from "../mock-trip.json";
+import tripsData from "../mock-trip.json";
 
 const router = Router();
 
@@ -9,12 +9,12 @@ router.get("/", (req: Request, res: Response) => {
   if (!keyword) {
     // * get all trips
     res.status(200).send({
-      data: TripsData,
+      trips: tripsData,
     });
   } else {
     // * get trip by keyword
     // ? better use elastic search for search engine
-    const findData = TripsData.trips.filter(
+    const findData = tripsData.filter(
       (trip) =>
         trip.title.includes(keyword) ||
         trip.description.includes(keyword) ||
@@ -22,7 +22,7 @@ router.get("/", (req: Request, res: Response) => {
     );
 
     res.status(200).send({
-      data: findData,
+      trips: findData,
     });
   }
 });
